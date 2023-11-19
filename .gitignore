@@ -1,0 +1,8 @@
+*.xlb
+*.exd
+*.xls
+*.xlsx
+*.xslm
+.DS_Store
+.idea
+
