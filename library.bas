@@ -12,6 +12,14 @@ Private Sub Worksheet_Change(ByVal Modified As range)
     Dim dbsheet As Worksheet
     
     ' --- GET ALL COLUMNS OF THE SHEET ---
+    Dim libID_col As String
+    libID_col = Split(Cells(1, Application.Match("#libraryId", Rows(1), 0)).address, "$")(1)
+    Dim expID_col As String
+    expID_col = Split(Cells(1, Application.Match("experimentId", Rows(1), 0)).address, "$")(1)
+    Dim platform_col As String
+    platform_col = Split(Cells(1, Application.Match("platform", Rows(1), 0)).address, "$")(1)
+    Dim SRSId_col As String
+    SRSId_col = Split(Cells(1, Application.Match("SRSId", Rows(1), 0)).address, "$")(1)
     Dim anatId_col As String
     anatId_col = Split(Cells(1, Application.Match("anatId", Rows(1), 0)).address, "$")(1)
     Dim anatName_col As String
@@ -20,40 +28,48 @@ Private Sub Worksheet_Change(ByVal Modified As range)
     stageId_col = Split(Cells(1, Application.Match("stageId", Rows(1), 0)).address, "$")(1)
     Dim stageName_col As String
     stageName_col = Split(Cells(1, Application.Match("stageName", Rows(1), 0)).address, "$")(1)
-    Dim Species_col As String
-    Species_col = Split(Cells(1, Application.Match("speciesId", Rows(1), 0)).address, "$")(1)
-    Dim strain_col As String
-    strain_col = Split(Cells(1, Application.Match("strain", Rows(1), 0)).address, "$")(1)
-    Dim exp_number_col As String
-    exp_number_col = Split(experimentSheet.Cells(1, Application.Match("numberOfAnnotatedLibraries", experimentSheet.Rows(1), 0)).address, "$")(1)
-    Dim expID_col As String
-    expID_col = Split(Cells(1, Application.Match("experimentId", Rows(1), 0)).address, "$")(1)
-    Dim libID_col As String
-    libID_col = Split(Cells(1, Application.Match("#libraryId", Rows(1), 0)).address, "$")(1)
-    Dim exp_expID_col As String
-    exp_expID_col = Split(Cells(1, Application.Match("#experimentId", experimentSheet.Rows(1), 0)).address, "$")(1)
-    Dim sex_col As String
-    sex_col = Split(Cells(1, Application.Match("sex", Rows(1), 0)).address, "$")(1)
-    Dim proto_col As String
-    proto_col = Split(Cells(1, Application.Match("protocol", Rows(1), 0)).address, "$")(1)
-    Dim proto_type_col As String
-    proto_type_col = Split(Cells(1, Application.Match("protocolType", Rows(1), 0)).address, "$")(1)
-    Dim RNASelection_col As String
-    RNASelection_col = Split(Cells(1, Application.Match("RNASelection", Rows(1), 0)).address, "$")(1)
     Dim anatAnnStatus_col As String
     anatAnnStatus_col = Split(Cells(1, Application.Match("anatAnnotationStatus", Rows(1), 0)).address, "$")(1)
     Dim anatBioStatus_col As String
     anatBioStatus_col = Split(Cells(1, Application.Match("anatBiologicalStatus", Rows(1), 0)).address, "$")(1)
     Dim stageAnnStatus_col As String
     stageAnnStatus_col = Split(Cells(1, Application.Match("stageAnnotationStatus", Rows(1), 0)).address, "$")(1)
+    Dim sex_col As String
+    sex_col = Split(Cells(1, Application.Match("sex", Rows(1), 0)).address, "$")(1)
+    Dim strain_col As String
+    strain_col = Split(Cells(1, Application.Match("strain", Rows(1), 0)).address, "$")(1)
+    Dim genotype_col As String
+    strain_col = Split(Cells(1, Application.Match("genotype", Rows(1), 0)).address, "$")(1)
+    Dim Species_col As String
+    Species_col = Split(Cells(1, Application.Match("speciesId", Rows(1), 0)).address, "$")(1)
+    Dim proto_col As String
+    proto_col = Split(Cells(1, Application.Match("protocol", Rows(1), 0)).address, "$")(1)
+    Dim proto_type_col As String
+    proto_type_col = Split(Cells(1, Application.Match("protocolType", Rows(1), 0)).address, "$")(1)
+    Dim RNASelection_col As String
+    RNASelection_col = Split(Cells(1, Application.Match("RNASelection", Rows(1), 0)).address, "$")(1)
+    Dim sampleTitle_col As String
+    sampleTitle_col = Split(Cells(1, Application.Match("sampleTitle", Rows(1), 0)).address, "$")(1)
     Dim annotatorCol As String
     annotatorCol = Split(Cells(1, Application.Match("annotatorId", Rows(1), 0)).address, "$")(1)
     Dim lastModifiedCol As String
     lastModifiedCol = Split(Cells(1, Application.Match("lastModificationDate", Rows(1), 0)).address, "$")(1)
     
+    Dim exp_number_col As String
+    exp_number_col = Split(experimentSheet.Cells(1, Application.Match("numberOfAnnotatedLibraries", experimentSheet.Rows(1), 0)).address, "$")(1)
+    Dim exp_expID_col As String
+    exp_expID_col = Split(Cells(1, Application.Match("#experimentId", experimentSheet.Rows(1), 0)).address, "$")(1)
+    
+    
     ' --- GET LASTROW ---
     Dim lib_lastrow As Long
     lib_lastrow = Cells(Rows.count, libID_col).End(xlUp).row
+    
+    ' --- INITIATE LIST OF COL THAT CAN'T BE EMPTY ---
+    ' (all the status columns are already getting checked)
+    Dim mandatory As Variant
+    mandatory = Array(expID_col, platform_col, SRSId_col, anatId_col, anatName_col, stageId_col, stageName_col, _
+    sex_col, strain_col, Species_col, proto_col, proto_type_col, RNASelection_col, sampleTitle_col)
     
     
     ' --- CHECK EVERY MODIFIED CELL (MAIN LOOP) ---
@@ -84,6 +100,11 @@ Private Sub Worksheet_Change(ByVal Modified As range)
         Dim strains_data As Variant
         Dim species_data As Variant
         Dim RNASel_data As Variant
+    
+        
+        If (range(libID_col & row).Value <> "") And (IsStringInArray(col, mandatory)) And (range(col & row).Value = "") Then
+            Warning range(col & row)
+        End If
 
 
         If (col <> annotatorCol) And (col <> lastModifiedCol) And (row > 1) Then

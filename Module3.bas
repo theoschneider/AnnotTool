@@ -39,7 +39,7 @@ Sub ExportAllModules()
                 
                 ' Open a text file for writing
                 fileNumber = FreeFile
-                Open exportPath & "/" & moduleName & ".txt" For Output As fileNumber
+                Open exportPath & "/" & moduleName & ".bas" For Output As fileNumber
     
                 ' Write the code to the text file
                 Print #fileNumber, moduleComponent.CodeModule.Lines(1, moduleComponent.CodeModule.CountOfLines)
