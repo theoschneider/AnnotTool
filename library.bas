@@ -39,7 +39,7 @@ Private Sub Worksheet_Change(ByVal Modified As range)
     Dim strain_col As String
     strain_col = Split(Cells(1, Application.Match("strain", Rows(1), 0)).address, "$")(1)
     Dim genotype_col As String
-    strain_col = Split(Cells(1, Application.Match("genotype", Rows(1), 0)).address, "$")(1)
+    genotype_col = Split(Cells(1, Application.Match("genotype", Rows(1), 0)).address, "$")(1)
     Dim Species_col As String
     Species_col = Split(Cells(1, Application.Match("speciesId", Rows(1), 0)).address, "$")(1)
     Dim proto_col As String
