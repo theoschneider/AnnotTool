@@ -66,10 +66,9 @@ Private Sub Worksheet_Change(ByVal Modified As range)
     lib_lastrow = Cells(Rows.count, libID_col).End(xlUp).row
     
     ' --- INITIATE LIST OF COL THAT CAN'T BE EMPTY ---
-    ' (all the status columns are already getting checked)
+    ' (other columns are getting checked lower in the script)
     Dim mandatory As Variant
-    mandatory = Array(expID_col, platform_col, SRSId_col, anatId_col, anatName_col, stageId_col, stageName_col, _
-    sex_col, strain_col, Species_col, proto_col, proto_type_col, RNASelection_col, sampleTitle_col)
+    mandatory = Array(expID_col, platform_col, SRSId_col, sex_col, strain_col, Species_col, sampleTitle_col)
     
     
     ' --- CHECK EVERY MODIFIED CELL (MAIN LOOP) ---
@@ -102,11 +101,7 @@ Private Sub Worksheet_Change(ByVal Modified As range)
         Dim RNASel_data As Variant
     
         
-        If (range(libID_col & row).Value <> "") And (IsStringInArray(col, mandatory)) And (range(col & row).Value = "") Then
-            Warning range(col & row)
-        End If
-
-
+        
         If (col <> annotatorCol) And (col <> lastModifiedCol) And (row > 1) Then
         ' --- ANNOTATOR PART (RUN EVERYTIME) ---
         
@@ -174,12 +169,17 @@ Private Sub Worksheet_Change(ByVal Modified As range)
             anatId = CStr(librarySheet.range(anatId_col & row).Value)
             Species = CStr(librarySheet.range(Species_col & row).Value)
             
-            If (anatName = "") And (anatId = "") Then
-                ' Remove the drop-down in both columns, to make sure
-                librarySheet.range(anatId_col & row, anatName_col & row).Validation.Delete
+            If (anatId = "") Or (anatName = "") Then
+                ' Remove the drop-down in the column, to make sure
                 ' Remove formatting
-                ClearFormatting range(anatId_col & row)
-                ClearFormatting range(anatName_col & row)
+                If (anatId = "") Then
+                    librarySheet.range(anatId_col & row).Validation.Delete
+                    Warning range(anatId_col & row)
+                End If
+                If (anatName = "") Then
+                    librarySheet.range(anatName_col & row).Validation.Delete
+                    Warning range(anatName_col & row)
+                End If
 
             ElseIf librarySheet.range(anatId_col & row).Value Like "[A-Za-z]*[:]#* [A-Za-z]*" Then
             ' If something has been selected previously, fill it (ID Term)
@@ -257,12 +257,18 @@ Private Sub Worksheet_Change(ByVal Modified As range)
             stageId = CStr(librarySheet.range(stageId_col & row).Value)
             Species = CStr(librarySheet.range(Species_col & row).Value)
             
-            If (stageId = "") And (stageName = "") Then
-                ' Remove the drop-down in both columns, to make sure
-                librarySheet.range(stageId_col & row, stageName_col & row).Validation.Delete
+            If (stageId = "") Or (stageName = "") Then
+                ' Remove the drop-down in column, to make sure
                 ' Remove formatting
-                ClearFormatting range(stageId_col & row)
-                ClearFormatting range(stageName_col & row)
+                
+                If (stageId = "") Then
+                    librarySheet.range(stageId_col & row).Validation.Delete
+                    Warning range(stageId_col & row)
+                End If
+                If (stageName = "") Then
+                    librarySheet.range(stageName_col & row).Validation.Delete
+                    Warning range(stageName_col & row)
+                End If
 
             ElseIf librarySheet.range(stageId_col & row).Value Like "[A-Za-z]*[:]#* [A-Za-z]*" Then
             ' If something has been selected previously, fill it (ID Term)
@@ -414,11 +420,19 @@ Private Sub Worksheet_Change(ByVal Modified As range)
             
             nResults = UBound(searchResults, 2)
             
-            If range(proto_col & row).Value = "" Then
-                range(proto_col & row).Validation.Delete
-                ClearFormatting range(proto_col & row)
-                ClearFormatting range(proto_type_col & row)
-                ClearFormatting range(RNASelection_col & row)
+            If (range(proto_col & row).Value = "") Or (range(proto_type_col & row).Value = "") Or (range(RNASelection_col & row).Value = "") Then
+                If (range(proto_col & row).Value = "") Then
+                    range(proto_col & row).Validation.Delete
+                    Warning range(proto_col & row)
+                End If
+                If (range(proto_type_col & row).Value) = "" Then
+                    range(proto_type_col & row).Validation.Delete
+                    Warning range(proto_type_col & row)
+                End If
+                If range(RNASelection_col & row).Value = "" Then
+                    range(RNASelection_col & row).Validation.Delete
+                    Warning range(RNASelection_col & row)
+                End If
             
             ElseIf nResults = 0 Then
                 range(proto_col & row).Validation.Delete
@@ -462,6 +476,16 @@ Private Sub Worksheet_Change(ByVal Modified As range)
 
         End If
         
+
+        If (IsStringInArray(col, mandatory)) Then
+         ' --- MANDATORY COLUMNS PART ---
+            If (range(libID_col & row).Value <> "") And (range(col & row).Value = "") Then
+                Warning range(col & row)
+            Else
+                ClearFormatting range(col & row)
+            End If
+
+        End If
         
     
     Next Target
