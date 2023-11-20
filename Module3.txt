@@ -24,7 +24,7 @@ Sub ExportAllModules()
 
    ' Loop through all modules in the workbook
     For Each moduleComponent In ThisWorkbook.VBProject.VBComponents
-        moduleName = moduleComponent.Name
+    
         componentType = moduleComponent.Type
 
         ' Check if the component is a code module (Type 1) or a sheet module (Type 100)
@@ -32,7 +32,11 @@ Sub ExportAllModules()
         
             ' Check if the code module is not empty
             If moduleComponent.CodeModule.CountOfLines > 0 Then
-            
+                
+                On Error Resume Next
+                moduleName = moduleComponent.Properties("Name").Value
+                On Error GoTo 0
+                
                 ' Open a text file for writing
                 fileNumber = FreeFile
                 Open exportPath & "/" & moduleName & ".txt" For Output As fileNumber
