@@ -174,18 +174,21 @@ Private Sub Worksheet_Change(ByVal Modified As range)
             anatId = CStr(SClibrarySheet.range(anatId_col & row).Value)
             Species = CStr(SClibrarySheet.range(Species_col & row).Value)
             
-            If (anatName = "") Or (anatId = "") Then
-                ' Remove the drop-down in both columns, to make sure
-                ' Remove formatting
-                If (anatId = "") Then
-                    SClibrarySheet.range(anatId_col & row).Validation.Delete
-                    Warning range(anatId_col & row)
-                End If
-                If (anatName = "") Then
-                    SClibrarySheet.range(anatName_col & row).Validation.Delete
-                    Warning range(anatName_col & row)
-                End If
-
+            ' If one of the 2 cells is empty, put a warning in the cell
+            If (anatId = "") Then
+                SClibrarySheet.range(anatId_col & row).Validation.Delete
+                Warning range(anatId_col & row)
+            End If
+            If (anatName = "") Then
+                SClibrarySheet.range(anatName_col & row).Validation.Delete
+                Warning range(anatName_col & row)
+            End If
+            
+            
+            If (anatName = "") And (anatId = "") Then
+                ' If both cells are empty, remove the drop-down in both columns, to make sure
+                SClibrarySheet.range(anatId_col & row, anatName_col & row).Validation.Delete
+                
             ElseIf SClibrarySheet.range(anatId_col & row).Value Like "[A-Za-z]*[:]#* [A-Za-z]*" Then
             ' If something has been selected previously, fill it (ID Term)
                 splitted = Split(SClibrarySheet.range(anatId_col & row).Value, " ", 2)
@@ -257,17 +260,20 @@ Private Sub Worksheet_Change(ByVal Modified As range)
             cellTypeId = CStr(SClibrarySheet.range(cellTypeId_col & row).Value)
             Species = CStr(SClibrarySheet.range(Species_col & row).Value)
             
-            If (cellTypeId = "") Or (cellTypeName = "") Then
-                ' Remove the drop-down in both columns, to make sure
-                ' Remove formatting
-                If (cellTypeId = "") Then
-                    SClibrarySheet.range(cellTypeId_col & row).Validation.Delete
-                    Warning range(cellTypeId_col & row)
-                End If
-                If (cellTypeName = "") Then
-                    SClibrarySheet.range(cellTypeName_col & row).Validation.Delete
-                    Warning range(cellTypeName_col & row)
-                End If
+            ' If one of the 2 cells is empty, put a warning for this cell
+            If (cellTypeId = "") Then
+                SClibrarySheet.range(cellTypeId_col & row).Validation.Delete
+                Warning range(cellTypeId_col & row)
+            End If
+            If (cellTypeName = "") Then
+                SClibrarySheet.range(cellTypeName_col & row).Validation.Delete
+                Warning range(cellTypeName_col & row)
+            End If
+            
+            
+            If (cellTypeId = "") And (cellTypeName = "") Then
+                ' If both cells are empty, remove the drop-down in both columns, to make sure
+                SClibrarySheet.range(cellTypeId_col & row, cellTypeName_col & row).Validation.Delete
 
             ElseIf SClibrarySheet.range(cellTypeId_col & row).Value Like "[A-Za-z]*[:]#* [A-Za-z]*" Then
             ' If something has been selected previously, fill it (ID Term)
@@ -342,17 +348,20 @@ Private Sub Worksheet_Change(ByVal Modified As range)
             stageId = CStr(SClibrarySheet.range(stageId_col & row).Value)
             Species = CStr(SClibrarySheet.range(Species_col & row).Value)
             
-            If (stageId = "") Or (stageName = "") Then
-                ' Remove the drop-down in columns, to make sure
-                ' Remove formatting
-                If (stageId = "") Then
-                    SClibrarySheet.range(stageId_col & row).Validation.Delete
-                    Warning range(stageId_col & row)
-                End If
-                If (stageName = "") Then
-                    SClibrarySheet.range(stageName_col & row).Validation.Delete
-                    Warning range(stageName_col & row)
-                End If
+            ' If one of the 2 cells is empty, put a warning in this cell
+            If (stageId = "") Then
+                SClibrarySheet.range(stageId_col & row).Validation.Delete
+                Warning range(stageId_col & row)
+            End If
+            If (stageName = "") Then
+                SClibrarySheet.range(stageName_col & row).Validation.Delete
+                Warning range(stageName_col & row)
+            End If
+            
+    
+            If (stageId = "") And (stageName = "") Then
+                ' If both cells are empty, remove the drop-down in columns, to make sure
+                SClibrarySheet.range(stageId_col & row, stageName_col & row).Validation.Delete
 
             ElseIf SClibrarySheet.range(stageId_col & row).Value Like "[A-Za-z]*[:]#* [A-Za-z]*" Then
             ' If something has been selected previously, fill it (ID Term)
@@ -501,15 +510,19 @@ Private Sub Worksheet_Change(ByVal Modified As range)
             
             nResults = UBound(searchResults, 2)
             
-            If (range(proto_col & row).Value = "") Or (range(proto_type_col & row).Value = "") Then
-                If (range(proto_col & row).Value = "") Then
-                    range(proto_col & row).Validation.Delete
-                    Warning range(proto_col & row)
-                End If
-                If (range(proto_type_col & row).Value) = "" Then
-                    range(proto_type_col & row).Validation.Delete
-                    Warning range(proto_type_col & row)
-                End If
+            ' If one of the 2 cells is empty, put a warning in the cell
+            If (range(proto_col & row).Value = "") Then
+                range(proto_col & row).Validation.Delete
+                Warning range(proto_col & row)
+            End If
+            If (range(proto_type_col & row).Value) = "" Then
+                Warning range(proto_type_col & row)
+            End If
+            
+            
+            If (range(proto_col & row).Value = "") And (range(proto_type_col & row).Value = "") Then
+            ' If both cells are empty, remove the drop-down in both columns, to make sure
+                range(proto_col & row).Validation.Delete
             
             ElseIf nResults = 0 Then
                 range(proto_col & row).Validation.Delete
@@ -527,8 +540,6 @@ Private Sub Worksheet_Change(ByVal Modified As range)
                 End If
             
             Else
-                ClearFormatting range(proto_col & row)
-                ClearFormatting range(proto_type_col & row)
                 ' Extract just the protocol names
                 ReDim possible_protocols(1 To nResults)
                 For i = 1 To nResults

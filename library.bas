@@ -169,17 +169,19 @@ Private Sub Worksheet_Change(ByVal Modified As range)
             anatId = CStr(librarySheet.range(anatId_col & row).Value)
             Species = CStr(librarySheet.range(Species_col & row).Value)
             
-            If (anatId = "") Or (anatName = "") Then
-                ' Remove the drop-down in the column, to make sure
-                ' Remove formatting
-                If (anatId = "") Then
-                    librarySheet.range(anatId_col & row).Validation.Delete
-                    Warning range(anatId_col & row)
-                End If
-                If (anatName = "") Then
-                    librarySheet.range(anatName_col & row).Validation.Delete
-                    Warning range(anatName_col & row)
-                End If
+            ' Put a warning if one of the two cells is empty
+            If (anatId = "") Then
+                librarySheet.range(anatId_col & row).Validation.Delete
+                Warning range(anatId_col & row)
+            End If
+            If (anatName = "") Then
+                librarySheet.range(anatName_col & row).Validation.Delete
+                Warning range(anatName_col & row)
+            End If
+            
+            If (anatId = "") And (anatName = "") Then
+                ' If both are empty, remove the drop-down in the column, to make sure
+                librarySheet.range(anatId_col & row, anatName_col & row).Validation.Delete
 
             ElseIf librarySheet.range(anatId_col & row).Value Like "[A-Za-z]*[:]#* [A-Za-z]*" Then
             ' If something has been selected previously, fill it (ID Term)
@@ -257,19 +259,21 @@ Private Sub Worksheet_Change(ByVal Modified As range)
             stageId = CStr(librarySheet.range(stageId_col & row).Value)
             Species = CStr(librarySheet.range(Species_col & row).Value)
             
-            If (stageId = "") Or (stageName = "") Then
-                ' Remove the drop-down in column, to make sure
-                ' Remove formatting
+            ' Put a warning if one of the two cells is empty
+            If (stageId = "") Then
+                librarySheet.range(stageId_col & row).Validation.Delete
+                Warning range(stageId_col & row)
+            End If
+            If (stageName = "") Then
+                librarySheet.range(stageName_col & row).Validation.Delete
+                Warning range(stageName_col & row)
+            End If
+            
+            
+            If (stageId = "") And (stageName = "") Then
+                ' If both cells are empty, remove the drop-down in column
+                librarySheet.range(stageId_col & row, stageName_col & row).Validation.Delete
                 
-                If (stageId = "") Then
-                    librarySheet.range(stageId_col & row).Validation.Delete
-                    Warning range(stageId_col & row)
-                End If
-                If (stageName = "") Then
-                    librarySheet.range(stageName_col & row).Validation.Delete
-                    Warning range(stageName_col & row)
-                End If
-
             ElseIf librarySheet.range(stageId_col & row).Value Like "[A-Za-z]*[:]#* [A-Za-z]*" Then
             ' If something has been selected previously, fill it (ID Term)
                 splitted = Split(librarySheet.range(stageId_col & row).Value, " ", 2)
@@ -420,19 +424,22 @@ Private Sub Worksheet_Change(ByVal Modified As range)
             
             nResults = UBound(searchResults, 2)
             
-            If (range(proto_col & row).Value = "") Or (range(proto_type_col & row).Value = "") Or (range(RNASelection_col & row).Value = "") Then
-                If (range(proto_col & row).Value = "") Then
-                    range(proto_col & row).Validation.Delete
-                    Warning range(proto_col & row)
-                End If
-                If (range(proto_type_col & row).Value) = "" Then
-                    range(proto_type_col & row).Validation.Delete
-                    Warning range(proto_type_col & row)
-                End If
-                If range(RNASelection_col & row).Value = "" Then
-                    range(RNASelection_col & row).Validation.Delete
-                    Warning range(RNASelection_col & row)
-                End If
+            ' If one of the 3 cells is empty, put a warning in this cell
+            If (range(proto_col & row).Value = "") Then
+                range(proto_col & row).Validation.Delete
+                Warning range(proto_col & row)
+            End If
+            If (range(proto_type_col & row).Value) = "" Then
+                Warning range(proto_type_col & row)
+            End If
+            If range(RNASelection_col & row).Value = "" Then
+                Warning range(RNASelection_col & row)
+            End If
+            
+            
+            If (range(proto_col & row).Value = "") And (range(proto_type_col & row).Value = "") And (range(RNASelection_col & row).Value = "") Then
+            ' If all 3 cells are empty, remove the dropdown
+                range(proto_col & row).Validation.Delete
             
             ElseIf nResults = 0 Then
                 range(proto_col & row).Validation.Delete
@@ -447,15 +454,14 @@ Private Sub Worksheet_Change(ByVal Modified As range)
                 ClearFormatting range(proto_type_col & row)
                 ClearFormatting range(RNASelection_col & row)
                 
-                If (range(proto_type_col & row).Value = "") And (range(RNASelection_col & row).Value = "") Then
+                If (range(proto_type_col & row).Value = "") Then
                     range(proto_type_col & row).Value = searchResults(2, 1)
+                End If
+                If (range(RNASelection_col & row).Value = "") Then
                     range(RNASelection_col & row).Value = searchResults(3, 1)
                 End If
             
             Else
-                ClearFormatting range(proto_col & row)
-                ClearFormatting range(proto_type_col & row)
-                ClearFormatting range(RNASelection_col & row)
                 ' Extract just the protocol names
                 ReDim possible_protocols(1 To nResults)
                 For i = 1 To nResults
