@@ -24,14 +24,14 @@ Private Sub Worksheet_Change(ByVal Modified As range)
     
         ' --- GET COL AND ROW OF MODIFIED CELL ---
         Dim col As String
-        col = Split(Cells(1, Target.Column).address, "$")(1)
+        col = Split(exp_Sheet.Cells(1, Target.Column).address, "$")(1)
         Dim row As Long
         row = Target.row
         
         ' --- DECLARE OTHER VALUES OF INTEREST ---
         Dim numberOfLibs As Long
         Dim exp_ID As String
-        exp_ID = range(expID_col & row).Value
+        exp_ID = exp_Sheet.range(expID_col & row).Value
         
         If (col = expID_col) And (row > 1) Then
              ' --- COUNT LIBRARIES PART ---
@@ -49,7 +49,7 @@ Private Sub Worksheet_Change(ByVal Modified As range)
         If (col = expID_col Or col = expStatus_col) And (row > 1) Then
             ' --- EXPERIMENT STATUS PART ---
             
-            ExperimentStatus Worksheets("sc-experiment").range(expStatus_col & row)
+            ExperimentStatus exp_Sheet.range(expStatus_col & row)
         
         End If
         

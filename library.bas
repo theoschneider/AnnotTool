@@ -13,57 +13,57 @@ Private Sub Worksheet_Change(ByVal Modified As range)
     
     ' --- GET ALL COLUMNS OF THE SHEET ---
     Dim libID_col As String
-    libID_col = Split(Cells(1, Application.Match("#libraryId", Rows(1), 0)).address, "$")(1)
+    libID_col = Split(librarySheet.Cells(1, Application.Match("#libraryId", Rows(1), 0)).address, "$")(1)
     Dim expID_col As String
-    expID_col = Split(Cells(1, Application.Match("experimentId", Rows(1), 0)).address, "$")(1)
+    expID_col = Split(librarySheet.Cells(1, Application.Match("experimentId", Rows(1), 0)).address, "$")(1)
     Dim platform_col As String
-    platform_col = Split(Cells(1, Application.Match("platform", Rows(1), 0)).address, "$")(1)
+    platform_col = Split(librarySheet.Cells(1, Application.Match("platform", Rows(1), 0)).address, "$")(1)
     Dim SRSId_col As String
-    SRSId_col = Split(Cells(1, Application.Match("SRSId", Rows(1), 0)).address, "$")(1)
+    SRSId_col = Split(librarySheet.Cells(1, Application.Match("SRSId", Rows(1), 0)).address, "$")(1)
     Dim anatId_col As String
-    anatId_col = Split(Cells(1, Application.Match("anatId", Rows(1), 0)).address, "$")(1)
+    anatId_col = Split(librarySheet.Cells(1, Application.Match("anatId", Rows(1), 0)).address, "$")(1)
     Dim anatName_col As String
-    anatName_col = Split(Cells(1, Application.Match("anatName", Rows(1), 0)).address, "$")(1)
+    anatName_col = Split(librarySheet.Cells(1, Application.Match("anatName", Rows(1), 0)).address, "$")(1)
     Dim stageId_col As String
-    stageId_col = Split(Cells(1, Application.Match("stageId", Rows(1), 0)).address, "$")(1)
+    stageId_col = Split(librarySheet.Cells(1, Application.Match("stageId", Rows(1), 0)).address, "$")(1)
     Dim stageName_col As String
-    stageName_col = Split(Cells(1, Application.Match("stageName", Rows(1), 0)).address, "$")(1)
+    stageName_col = Split(librarySheet.Cells(1, Application.Match("stageName", Rows(1), 0)).address, "$")(1)
     Dim anatAnnStatus_col As String
-    anatAnnStatus_col = Split(Cells(1, Application.Match("anatAnnotationStatus", Rows(1), 0)).address, "$")(1)
+    anatAnnStatus_col = Split(librarySheet.Cells(1, Application.Match("anatAnnotationStatus", Rows(1), 0)).address, "$")(1)
     Dim anatBioStatus_col As String
-    anatBioStatus_col = Split(Cells(1, Application.Match("anatBiologicalStatus", Rows(1), 0)).address, "$")(1)
+    anatBioStatus_col = Split(librarySheet.Cells(1, Application.Match("anatBiologicalStatus", Rows(1), 0)).address, "$")(1)
     Dim stageAnnStatus_col As String
-    stageAnnStatus_col = Split(Cells(1, Application.Match("stageAnnotationStatus", Rows(1), 0)).address, "$")(1)
+    stageAnnStatus_col = Split(librarySheet.Cells(1, Application.Match("stageAnnotationStatus", Rows(1), 0)).address, "$")(1)
     Dim sex_col As String
-    sex_col = Split(Cells(1, Application.Match("sex", Rows(1), 0)).address, "$")(1)
+    sex_col = Split(librarySheet.Cells(1, Application.Match("sex", Rows(1), 0)).address, "$")(1)
     Dim strain_col As String
-    strain_col = Split(Cells(1, Application.Match("strain", Rows(1), 0)).address, "$")(1)
+    strain_col = Split(librarySheet.Cells(1, Application.Match("strain", Rows(1), 0)).address, "$")(1)
     Dim genotype_col As String
-    genotype_col = Split(Cells(1, Application.Match("genotype", Rows(1), 0)).address, "$")(1)
+    genotype_col = Split(librarySheet.Cells(1, Application.Match("genotype", Rows(1), 0)).address, "$")(1)
     Dim Species_col As String
-    Species_col = Split(Cells(1, Application.Match("speciesId", Rows(1), 0)).address, "$")(1)
+    Species_col = Split(librarySheet.Cells(1, Application.Match("speciesId", Rows(1), 0)).address, "$")(1)
     Dim proto_col As String
-    proto_col = Split(Cells(1, Application.Match("protocol", Rows(1), 0)).address, "$")(1)
+    proto_col = Split(librarySheet.Cells(1, Application.Match("protocol", Rows(1), 0)).address, "$")(1)
     Dim proto_type_col As String
-    proto_type_col = Split(Cells(1, Application.Match("protocolType", Rows(1), 0)).address, "$")(1)
+    proto_type_col = Split(librarySheet.Cells(1, Application.Match("protocolType", Rows(1), 0)).address, "$")(1)
     Dim RNASelection_col As String
-    RNASelection_col = Split(Cells(1, Application.Match("RNASelection", Rows(1), 0)).address, "$")(1)
+    RNASelection_col = Split(librarySheet.Cells(1, Application.Match("RNASelection", Rows(1), 0)).address, "$")(1)
     Dim sampleTitle_col As String
-    sampleTitle_col = Split(Cells(1, Application.Match("sampleTitle", Rows(1), 0)).address, "$")(1)
+    sampleTitle_col = Split(librarySheet.Cells(1, Application.Match("sampleTitle", Rows(1), 0)).address, "$")(1)
     Dim annotatorCol As String
-    annotatorCol = Split(Cells(1, Application.Match("annotatorId", Rows(1), 0)).address, "$")(1)
+    annotatorCol = Split(librarySheet.Cells(1, Application.Match("annotatorId", Rows(1), 0)).address, "$")(1)
     Dim lastModifiedCol As String
-    lastModifiedCol = Split(Cells(1, Application.Match("lastModificationDate", Rows(1), 0)).address, "$")(1)
+    lastModifiedCol = Split(librarySheet.Cells(1, Application.Match("lastModificationDate", Rows(1), 0)).address, "$")(1)
     
     Dim exp_number_col As String
     exp_number_col = Split(experimentSheet.Cells(1, Application.Match("numberOfAnnotatedLibraries", experimentSheet.Rows(1), 0)).address, "$")(1)
     Dim exp_expID_col As String
-    exp_expID_col = Split(Cells(1, Application.Match("#experimentId", experimentSheet.Rows(1), 0)).address, "$")(1)
+    exp_expID_col = Split(experimentSheet.Cells(1, Application.Match("#experimentId", experimentSheet.Rows(1), 0)).address, "$")(1)
     
     
     ' --- GET LASTROW ---
     Dim lib_lastrow As Long
-    lib_lastrow = Cells(Rows.count, libID_col).End(xlUp).row
+    lib_lastrow = librarySheet.Cells(Rows.count, libID_col).End(xlUp).row
     
     ' --- INITIATE LIST OF COL THAT CAN'T BE EMPTY ---
     ' (other columns are getting checked lower in the script)
@@ -76,7 +76,7 @@ Private Sub Worksheet_Change(ByVal Modified As range)
 
         ' --- GET COL AND ROW OF MODIFIED CELL ---
         Dim col As String
-        col = Split(Cells(1, Target.Column).address, "$")(1)
+        col = Split(librarySheet.Cells(1, Target.Column).address, "$")(1)
         Dim row As Long
         row = Target.row
         
@@ -107,8 +107,8 @@ Private Sub Worksheet_Change(ByVal Modified As range)
         
             ' Get the username of the person who made the change and update column, as well as date
             userName = Application.userName
-            Cells(row, annotatorCol).Value = userName
-            Cells(row, lastModifiedCol).Value = Date
+            librarySheet.Cells(row, annotatorCol).Value = userName
+            librarySheet.Cells(row, lastModifiedCol).Value = Date
                 
         End If
         
@@ -116,7 +116,7 @@ Private Sub Worksheet_Change(ByVal Modified As range)
         If (col = libID_col Or col = expID_col) And (row > 1) Then
              ' --- COUNT LIBRARIES PART ---
              
-            exp_ID = range(expID_col & row).Value
+            exp_ID = librarySheet.range(expID_col & row).Value
             
             ' --- Run the libraries counter
             numberOfLibs = Count_Libraries(exp_ID, experimentSheet, librarySheet)
@@ -138,21 +138,21 @@ Private Sub Worksheet_Change(ByVal Modified As range)
         
         If (col = libID_col Or col = anatAnnStatus_col) And (row > 1) Then
             ' --- ANAT ANNOTATION STATUS PART ---
-            AnnotationStatus Worksheets("library").range(anatAnnStatus_col & row)
+            AnnotationStatus librarySheet.range(anatAnnStatus_col & row)
         
         End If
         
         
         If (col = libID_col Or col = stageAnnStatus_col) And (row > 1) Then
             ' --- STAGE ANNOTATION STATUS PART ---
-            AnnotationStatus Worksheets("library").range(stageAnnStatus_col & row)
+            AnnotationStatus librarySheet.range(stageAnnStatus_col & row)
         
         End If
         
         
         If (col = libID_col Or col = anatBioStatus_col) And (row > 1) Then
             ' --- ANAT BIOLOGICAL STATUS PART ---
-            BiologicalStatus Worksheets("library").range(anatBioStatus_col & row)
+            BiologicalStatus librarySheet.range(anatBioStatus_col & row)
         
         End If
         
@@ -172,11 +172,11 @@ Private Sub Worksheet_Change(ByVal Modified As range)
             ' Put a warning if one of the two cells is empty
             If (anatId = "") Then
                 librarySheet.range(anatId_col & row).Validation.Delete
-                Warning range(anatId_col & row)
+                Warning librarySheet.range(anatId_col & row)
             End If
             If (anatName = "") Then
                 librarySheet.range(anatName_col & row).Validation.Delete
-                Warning range(anatName_col & row)
+                Warning librarySheet.range(anatName_col & row)
             End If
             
             If (anatId = "") And (anatName = "") Then
@@ -186,23 +186,23 @@ Private Sub Worksheet_Change(ByVal Modified As range)
             ElseIf librarySheet.range(anatId_col & row).Value Like "[A-Za-z]*[:]#* [A-Za-z]*" Then
             ' If something has been selected previously, fill it (ID Term)
                 splitted = Split(librarySheet.range(anatId_col & row).Value, " ", 2)
-                Cells(row, anatId_col).Value = splitted(0)
-                Cells(row, anatName_col).Value = splitted(1)
+                librarySheet.Cells(row, anatId_col).Value = splitted(0)
+                librarySheet.Cells(row, anatName_col).Value = splitted(1)
                 ' Remove the drop-down in both columns, to make sure
                 librarySheet.range(anatId_col & row, anatName_col & row).Validation.Delete
                 ' Remove formatting
-                ClearFormatting range(anatId_col & row)
-                ClearFormatting range(anatName_col & row)
+                ClearFormatting librarySheet.range(anatId_col & row)
+                ClearFormatting librarySheet.range(anatName_col & row)
 
             ElseIf librarySheet.range(anatName_col & row).Value Like "[A-Za-z]*[:]#* [A-Za-z]*" Then
                 splitted = Split(librarySheet.range(anatName_col & row).Value, " ", 2)
-                Cells(row, anatId_col).Value = splitted(0)
-                Cells(row, anatName_col).Value = splitted(1)
+                librarySheet.Cells(row, anatId_col).Value = splitted(0)
+                librarySheet.Cells(row, anatName_col).Value = splitted(1)
                 ' Remove the drop-down in both columns, to make sure
                 librarySheet.range(anatId_col & row, anatName_col & row).Validation.Delete
                 ' Remove formatting
-                ClearFormatting range(anatId_col & row)
-                ClearFormatting range(anatName_col & row)
+                ClearFormatting librarySheet.range(anatId_col & row)
+                ClearFormatting librarySheet.range(anatName_col & row)
 
             Else
                 ' Run the search
@@ -211,15 +211,15 @@ Private Sub Worksheet_Change(ByVal Modified As range)
                 
                 ' If 0 options, put a warning
                 If nResults = 0 Then
-                    Warning range(anatId_col & row)
-                    Warning range(anatName_col & row)
+                    Warning librarySheet.range(anatId_col & row)
+                    Warning librarySheet.range(anatName_col & row)
                 ' If only 1 option, fill it directly
                 ElseIf nResults = 1 Then
                     librarySheet.range(anatId_col & row).Value = matchingValuesArray(1, 1)
                     librarySheet.range(anatName_col & row).Value = matchingValuesArray(2, 1)
                     ' Remove formatting
-                    ClearFormatting range(anatId_col & row)
-                    ClearFormatting range(anatName_col & row)
+                    ClearFormatting librarySheet.range(anatId_col & row)
+                    ClearFormatting librarySheet.range(anatName_col & row)
                 Else
                     ' Sort the array by length of string
                     matchingValuesArray = SortArray(matchingValuesArray, 2)
@@ -262,11 +262,11 @@ Private Sub Worksheet_Change(ByVal Modified As range)
             ' Put a warning if one of the two cells is empty
             If (stageId = "") Then
                 librarySheet.range(stageId_col & row).Validation.Delete
-                Warning range(stageId_col & row)
+                Warning librarySheet.range(stageId_col & row)
             End If
             If (stageName = "") Then
                 librarySheet.range(stageName_col & row).Validation.Delete
-                Warning range(stageName_col & row)
+                Warning librarySheet.range(stageName_col & row)
             End If
             
             
@@ -277,23 +277,23 @@ Private Sub Worksheet_Change(ByVal Modified As range)
             ElseIf librarySheet.range(stageId_col & row).Value Like "[A-Za-z]*[:]#* [A-Za-z]*" Then
             ' If something has been selected previously, fill it (ID Term)
                 splitted = Split(librarySheet.range(stageId_col & row).Value, " ", 2)
-                Cells(row, stageId_col).Value = splitted(0)
-                Cells(row, stageName_col).Value = splitted(1)
+                librarySheet.Cells(row, stageId_col).Value = splitted(0)
+                librarySheet.Cells(row, stageName_col).Value = splitted(1)
                 ' Remove the drop-down in both columns, to make sure
                 librarySheet.range(stageId_col & row, stageName_col & row).Validation.Delete
                 ' Remove formatting
-                ClearFormatting range(stageId_col & row)
-                ClearFormatting range(stageName_col & row)
+                ClearFormatting librarySheet.range(stageId_col & row)
+                ClearFormatting librarySheet.range(stageName_col & row)
 
             ElseIf librarySheet.range(stageName_col & row).Value Like "[A-Za-z]*[:]#* [A-Za-z]*" Then
                 splitted = Split(librarySheet.range(stageName_col & row).Value, " ", 2)
-                Cells(row, stageId_col).Value = splitted(0)
-                Cells(row, stageName_col).Value = splitted(1)
+                librarySheet.Cells(row, stageId_col).Value = splitted(0)
+                librarySheet.Cells(row, stageName_col).Value = splitted(1)
                 ' Remove the drop-down in both columns, to make sure
                 librarySheet.range(stageId_col & row, stageName_col & row).Validation.Delete
                 ' Remove formatting
-                ClearFormatting range(stageId_col & row)
-                ClearFormatting range(stageName_col & row)
+                ClearFormatting librarySheet.range(stageId_col & row)
+                ClearFormatting librarySheet.range(stageName_col & row)
 
             Else
                 ' Run the search
@@ -302,15 +302,15 @@ Private Sub Worksheet_Change(ByVal Modified As range)
                 
                 ' If 0 options, color cell
                 If nResults = 0 Then
-                    Warning range(stageId_col & row)
-                    Warning range(stageName_col & row)
+                    Warning librarySheet.range(stageId_col & row)
+                    Warning librarySheet.range(stageName_col & row)
                 ' If only 1 option, fill it directly
                 ElseIf nResults = 1 Then
                     librarySheet.range(stageId_col & row).Value = matchingValuesArray(1, 1)
                     librarySheet.range(stageName_col & row).Value = matchingValuesArray(2, 1)
                     ' Remove formatting
-                    ClearFormatting range(stageId_col & row)
-                    ClearFormatting range(stageName_col & row)
+                    ClearFormatting librarySheet.range(stageId_col & row)
+                    ClearFormatting librarySheet.range(stageName_col & row)
                 Else
                     ' Sort the array by length of string
                     matchingValuesArray = SortArray(matchingValuesArray, 2)
@@ -341,8 +341,8 @@ Private Sub Worksheet_Change(ByVal Modified As range)
             ' Find species of the line
             Species = CStr(librarySheet.range(Species_col & row).Value)
             
-            sex_data = Application.Transpose(range(sex_col & "2:" & sex_col & lib_lastrow).Value)
-            species_data = Application.Transpose(range(Species_col & "2:" & Species_col & lib_lastrow).Value)
+            sex_data = Application.Transpose(librarySheet.range(sex_col & "2:" & sex_col & lib_lastrow).Value)
+            species_data = Application.Transpose(librarySheet.range(Species_col & "2:" & Species_col & lib_lastrow).Value)
             
             count = 0
             
@@ -376,8 +376,8 @@ Private Sub Worksheet_Change(ByVal Modified As range)
             ' Find species of the line
             Species = CStr(librarySheet.range(Species_col & row).Value)
             
-            strains_data = Application.Transpose(range(strain_col & "2:" & strain_col & lib_lastrow).Value)
-            species_data = Application.Transpose(range(Species_col & "2:" & Species_col & lib_lastrow).Value)
+            strains_data = Application.Transpose(librarySheet.range(strain_col & "2:" & strain_col & lib_lastrow).Value)
+            species_data = Application.Transpose(librarySheet.range(Species_col & "2:" & Species_col & lib_lastrow).Value)
             
             count = 0
             
@@ -409,11 +409,11 @@ Private Sub Worksheet_Change(ByVal Modified As range)
         ' --- PROTOCOL PART ---
             
             Dim protocol As String
-            protocol = range(proto_col & row).Value
+            protocol = librarySheet.range(proto_col & row).Value
             Dim protocolType As String
-            protocolType = range(proto_type_col & row).Value
+            protocolType = librarySheet.range(proto_type_col & row).Value
             Dim RNASelection As String
-            RNASelection = range(RNASelection_col & row).Value
+            RNASelection = librarySheet.range(RNASelection_col & row).Value
             Dim possible_protocols As Variant
             
             Set dbsheet = Nothing
@@ -425,40 +425,40 @@ Private Sub Worksheet_Change(ByVal Modified As range)
             nResults = UBound(searchResults, 2)
             
             ' If one of the 3 cells is empty, put a warning in this cell
-            If (range(proto_col & row).Value = "") Then
-                range(proto_col & row).Validation.Delete
-                Warning range(proto_col & row)
+            If (librarySheet.range(proto_col & row).Value = "") Then
+                librarySheet.range(proto_col & row).Validation.Delete
+                Warning librarySheet.range(proto_col & row)
             End If
-            If (range(proto_type_col & row).Value) = "" Then
-                Warning range(proto_type_col & row)
+            If (librarySheet.range(proto_type_col & row).Value) = "" Then
+                Warning librarySheet.range(proto_type_col & row)
             End If
-            If range(RNASelection_col & row).Value = "" Then
-                Warning range(RNASelection_col & row)
+            If librarySheet.range(RNASelection_col & row).Value = "" Then
+                Warning librarySheet.range(RNASelection_col & row)
             End If
             
             
-            If (range(proto_col & row).Value = "") And (range(proto_type_col & row).Value = "") And (range(RNASelection_col & row).Value = "") Then
+            If (librarySheet.range(proto_col & row).Value = "") And (librarySheet.range(proto_type_col & row).Value = "") And (librarySheet.range(RNASelection_col & row).Value = "") Then
             ' If all 3 cells are empty, remove the dropdown
-                range(proto_col & row).Validation.Delete
+                librarySheet.range(proto_col & row).Validation.Delete
             
             ElseIf nResults = 0 Then
-                range(proto_col & row).Validation.Delete
-                Warning range(proto_col & row)
-                Warning range(proto_type_col & row)
-                Warning range(RNASelection_col & row)
+                librarySheet.range(proto_col & row).Validation.Delete
+                Warning librarySheet.range(proto_col & row)
+                Warning librarySheet.range(proto_type_col & row)
+                Warning librarySheet.range(RNASelection_col & row)
             
             ElseIf nResults = 1 Then
-                range(proto_col & row).Validation.Delete
-                range(proto_col & row).Value = searchResults(1, 1)
-                ClearFormatting range(proto_col & row)
-                ClearFormatting range(proto_type_col & row)
-                ClearFormatting range(RNASelection_col & row)
+                librarySheet.range(proto_col & row).Validation.Delete
+                librarySheet.range(proto_col & row).Value = searchResults(1, 1)
+                ClearFormatting librarySheet.range(proto_col & row)
+                ClearFormatting librarySheet.range(proto_type_col & row)
+                ClearFormatting librarySheet.range(RNASelection_col & row)
                 
-                If (range(proto_type_col & row).Value = "") Then
-                    range(proto_type_col & row).Value = searchResults(2, 1)
+                If (librarySheet.range(proto_type_col & row).Value = "") Then
+                    librarySheet.range(proto_type_col & row).Value = searchResults(2, 1)
                 End If
-                If (range(RNASelection_col & row).Value = "") Then
-                    range(RNASelection_col & row).Value = searchResults(3, 1)
+                If (librarySheet.range(RNASelection_col & row).Value = "") Then
+                    librarySheet.range(RNASelection_col & row).Value = searchResults(3, 1)
                 End If
             
             Else
@@ -469,7 +469,7 @@ Private Sub Worksheet_Change(ByVal Modified As range)
                 Next i
                 
                 ' Put them in a dropdown
-                With range(proto_col & row).Validation
+                With librarySheet.range(proto_col & row).Validation
                     .Delete
                     .Add Type:=xlValidateList, AlertStyle:=xlValidAlertStop, Operator:=xlBetween, Formula1:=Join(possible_protocols, ",")
                     .IgnoreBlank = True
@@ -485,10 +485,10 @@ Private Sub Worksheet_Change(ByVal Modified As range)
 
         If (IsStringInArray(col, mandatory)) Then
          ' --- MANDATORY COLUMNS PART ---
-            If (range(libID_col & row).Value <> "") And (range(col & row).Value = "") Then
-                Warning range(col & row)
+            If (librarySheet.range(libID_col & row).Value <> "") And (librarySheet.range(col & row).Value = "") Then
+                Warning librarySheet.range(col & row)
             Else
-                ClearFormatting range(col & row)
+                ClearFormatting librarySheet.range(col & row)
             End If
 
         End If
@@ -501,6 +501,8 @@ Private Sub Worksheet_Change(ByVal Modified As range)
     Application.EnableEvents = True
     
 End Sub
+
+
 
 
 
