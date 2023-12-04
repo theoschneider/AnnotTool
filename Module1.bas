@@ -299,6 +299,7 @@ Function FindMatchingValues(Id As String, Term As String, Species As String, Ref
     Dim ID_col() As Variant
     Dim Term_col() As Variant
     Dim Species_col() As Variant
+    Dim Sym_col() As Variant
     Dim i As Long
     
     ' Get the last row number in the "organ-db" sheet
@@ -308,6 +309,7 @@ Function FindMatchingValues(Id As String, Term As String, Species As String, Ref
     ID_col = Application.Transpose(RefSheet.range("A2:A" & lastRowRefSheet))
     Term_col = Application.Transpose(RefSheet.range("B2:B" & lastRowRefSheet))
     Species_col = Application.Transpose(RefSheet.range("C2:C" & lastRowRefSheet))
+    Sym_col = Application.Transpose(RefSheet.range("E2:E" & lastRowRefSheet))
     
     ' Loop through each row in RefSheet and check the conditions
     rowCount = 0
@@ -316,7 +318,7 @@ Function FindMatchingValues(Id As String, Term As String, Species As String, Ref
     
     For i = 1 To UBound(ID_col)
         If InStr(1, ID_col(i), Id, vbTextCompare) > 0 _
-            And InStr(1, Term_col(i), Term, vbTextCompare) > 0 _
+            And (InStr(1, Term_col(i), Term, vbTextCompare) > 0 Or InStr(1, Sym_col(i), Term, vbTextCompare) > 0) _
             And InStr(1, Species_col(i), Species, vbTextCompare) > 0 Then
             ' Add the matching values from columns A and B to the array
             rowCount = rowCount + 1
