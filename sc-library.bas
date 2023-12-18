@@ -76,8 +76,7 @@ Private Sub Worksheet_Change(ByVal Modified As range)
     ' --- INITIATE LIST OF COL THAT CAN'T BE EMPTY ---
     ' (other columns are getting checked lower in the script)
     Dim mandatory As Variant
-    mandatory = Array(expID_col, platform_col, SRSId_col, sex_col, strain_col, genotype_col, Species_col, RNAseqTags_col, _
-    libname_col, sampleTitle_col, condition_col)
+    mandatory = Array(expID_col, platform_col, SRSId_col, sex_col, strain_col, Species_col, libname_col, sampleTitle_col)
     
     
     ' --- CHECK EVERY MODIFIED CELL (MAIN LOOP) ---
@@ -136,6 +135,13 @@ Private Sub Worksheet_Change(ByVal Modified As range)
         If (col = libID_col Or col = stageAnnStatus_col) And (row > 1) Then
             ' --- STAGE ANNOTATION STATUS PART ---
             AnnotationStatus SClibrarySheet.range(stageAnnStatus_col & row)
+        
+        End If
+        
+        
+        If (col = libID_col Or col = RNAseqTags_col) And (row > 1) Then
+            ' --- RNAseqTags PART ---
+            RNAseqTags SClibrarySheet.range(RNAseqTags_col & row)
         
         End If
         

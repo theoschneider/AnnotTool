@@ -6,7 +6,7 @@
 '
 ' - 6 functions: FindMatchingValues, SortArray, IsStringInArray, Count_Libraries, ProtocolStatus, SCProtocolStatus
 ' - 3 formatting subroutines: Warning, Fatal, ClearFormatting
-' - 3 subroutines: ExperimentStatus, AnnotationStatus, BiologicalStatus
+' - 4 subroutines: ExperimentStatus, AnnotationStatus, BiologicalStatus, RNASeqTags
 '
 '***************************************
 
@@ -145,6 +145,38 @@ Public Sub BiologicalStatus(cell As range)
     lastRow = Worksheets("settings").Cells(Rows.count, 3).End(xlUp).row
     
     arr = Application.Transpose(Worksheets("settings").range("C2:C" & lastRow).Value)
+    
+    If IsStringInArray(cell.Value, arr) Then
+    
+        ClearFormatting cell
+        cell.Validation.Delete
+        
+    Else
+    
+        Warning cell
+        ' Fill the cell with dropdown
+        With cell.Validation
+            .Delete
+            .Add Type:=xlValidateList, Formula1:=Join(arr, ",")
+            .InCellDropdown = True
+            .ShowInput = True
+            .ShowError = False
+        End With
+    
+    End If
+
+End Sub
+
+
+Public Sub RNAseqTags(cell As range)
+
+    Dim lastRow As Long
+    Dim arr As Variant
+    
+    ' Find the last row of possible terms
+    lastRow = Worksheets("settings").Cells(Rows.count, 4).End(xlUp).row
+    
+    arr = Application.Transpose(Worksheets("settings").range("D2:D" & lastRow).Value)
     
     If IsStringInArray(cell.Value, arr) Then
     
